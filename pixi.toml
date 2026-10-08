@@ -11,10 +11,6 @@ ANDROID_PLATFORMS = "android-35"
 ANDROID_NDK = "27.0.12077973"
 
 [dependencies]
-git = "*"
-cmake = "*"
-ninja = "*"
-conan = "*"
 mkdocs = "*"
 mkdocs-material = "*"
 nushell = "*"
