@@ -1,0 +1,46 @@
+[workspace]
+name = "ProjectBones"
+version = "1.0.0"
+channels = ["conda-forge"]
+platforms = ["win-64", "linux-64"]
+
+[activation.env]
+ANDROID_IP = ""
+ANDROID_BUILD_TOOLS = "35.0.0"
+ANDROID_PLATFORMS = "android-35"
+ANDROID_NDK = "27.0.12077973"
+
+[dependencies]
+git = "*"
+cmake = "*"
+ninja = "*"
+conan = "*"
+mkdocs = "*"
+mkdocs-material = "*"
+nushell = "*"
+xmake = "*"
+
+[target.win-64.dependencies]
+vs2022_win-64 = "*"
+
+[target.linux-64.dependencies]
+gcc = "*"
+gxx = "*"
+
+[target.win-64.tasks]
+setup = "winget install Google.AndroidCLI"
+
+[target.linux-64.tasks]
+setup = 'curl -fsSL https://dl.google.com/android/cli/latest/linux_x86_64/install.sh | bash'
+
+
+[tasks]
+# Config
+installAndroidSDK = "nu scripts/android/install_SDK.nu"
+
+configDesktop = "xmake f -c"
+configAndroid = { cmd = "nu scripts/android/config.nu", depends-on = ["installAndroidSDK"] }
+
+# Build
+buildDesktop = { cmd = "xmake", depends-on = ["configDesktop"] }
+buildAndroid = { cmd = "xmake", depends-on = ["configAndroid"] }
