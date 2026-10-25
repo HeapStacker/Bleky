@@ -1,7 +1,8 @@
 local projectName = tostring(os.getenv("PIXI_PROJECT_NAME"))
+local projectVersion = os.getenv("PIXI_PROJECT_VERSION")
 
 set_project(projectName)
-set_version(os.getenv("PIXI_PROJECT_VERSION"))
+set_version(projectVersion)
 set_languages("c++23")
 
 add_rules("mode.debug", "mode.release")
